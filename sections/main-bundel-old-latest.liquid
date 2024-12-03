@@ -1,0 +1,547 @@
+<style>
+	.bundel-container {
+		padding: 4rem 0 12rem 0;
+	}
+
+	footer {
+		display: none;
+	}
+
+	.product-title {
+		text-transform: capitalize;
+	}
+
+	.bundel-form .grid-group {
+		display: grid;
+		grid-template-columns: auto auto;
+		gap: 2rem;
+	}
+
+	.button-container {
+		position: fixed;
+		left: 0;
+		bottom: 0;
+		width: 100%;
+		padding: 1.5rem 2rem;
+		background-color: bisque;
+	}
+
+	.button-container .page-width {
+		padding: 0;
+		display: flex;
+		flex-direction: row-reverse;
+	}
+
+	.bundel-form button {
+		padding: 1.5rem 3.5rem;
+		border-radius: 8px;
+		font-size: 18px;
+		font-weight: 500;
+		color: bisque;
+		border-top: 1px solid rgb(238, 193, 165);
+		border: none;
+		cursor: pointer;
+		background-color: #5a0616;
+		transition: all 0.25s ease-in-out;
+	}
+
+	.bundel-form button:hover {
+		background-color: #710b1e;
+	}
+
+	.bundle-item {
+		display: flex;
+		align-items: center;
+		margin-bottom: 1rem;
+	}
+
+	.bundle-item-container .bundle-item {
+		flex-direction: column;
+		align-items: start;
+		width: 100%;
+	}
+
+	.bundle-item.disabled {
+		opacity: 0.5;
+		user-select: none;
+	}
+
+	.bundle-item img {
+		width: 50px;
+		height: 50px;
+		margin-right: 1rem;
+		border-radius: 4px;
+	}
+
+	.bundle-item input {
+		margin-right: 1rem;
+	}
+</style>
+
+<div class="page-width bundel-container">
+	<h1 class="product-title">{{product.handle}}</h1>
+	<form id="bundel-form" class="bundel-form">
+		<div class="order-status">
+			<h3>Order Status</h3>
+			<label>
+				<input type="radio" name="order-status" value="Baked" checked> Baked
+			</label>
+			<label>
+				<input type="radio" name="order-status" value="Frozen"> Frozen
+			</label>
+		</div>
+		<div id="append-group" class="grid-group">
+			<div class="group0"></div>
+			<div class="group1"></div>
+			<div class="group2"></div>
+			<div class="group3"></div>
+			<div class="group4"></div>
+			<div class="group5"></div>
+		</div>
+		<hr>
+		<div class="">
+			<h3>Additional Info</h3>
+			<div class="bundle-item-container">
+				<div class="bundle-item">
+					<label for="addons2-message">Add a printable custom message:</label>
+					<textarea id="addons2-message" placeholder="Enter your message here"></textarea>
+				</div>
+				<div class="bundle-item">
+					<label for="sender-name">Sender Name:</label>
+					<input type="text" id="sender-name" placeholder="Enter sender name">
+				</div>
+				<div class="bundle-item">
+					<label for="receiver-name">Receiver Name:</label>
+					<input type="text" id="receiver-name" placeholder="Enter receiver name">
+				</div>
+				<div class="bundle-item">
+					<label for="delivery-date">Delivery Date:</label>
+					<input type="date" id="delivery-date">
+				</div>
+				<div class="bundle-item">
+					<label for="delivery-time">Delivery Date:</label>
+					<input type="time" id="delivery-time">
+				</div>
+			</div>
+
+		</div>
+		<div class="button-container">
+			<div class="page-width">
+				<button type="submit">Add To Cart</button>
+			</div>
+		</div>
+	</form>
+</div>
+
+<script>
+
+	let items = [];
+	const productData = {{ product | json }};
+	const variantAdminGraphqlApiId = productData.variants[0].id;
+
+	async function fetchBundleComponents() {
+		const productHandle = "{{ product.handle }}"; // Dynamically inject the product handle
+		const query = `
+			query MyQuery {
+				product(handle: "${productHandle}") {
+					title
+					variants(first: 1) {
+					nodes {
+						price {
+						amount
+						currencyCode
+						}
+						metafields(
+						identifiers: [
+							{key: "component_group_1", namespace: "custom"},
+							{key: "component_group_2", namespace: "custom"},
+							{key: "component_addons_1", namespace: "custom"},
+							{key: "component_addons_2", namespace: "custom"},
+							{key: "box_title", namespace: "custom"},
+							{key: "component_addons_1_maximum", namespace: "custom"},
+							{key: "component_group_1_items_count", namespace: "custom"},
+						]
+						) {
+						value
+						references(first: 10) {
+							nodes {
+							... on ProductVariant {
+								id
+								product {
+								title
+								variants(first: 10) {
+									edges {
+									node {
+										title
+									}
+									}
+								}
+								}
+								price {
+								amount
+								currencyCode
+								}
+								image {
+								url
+								}
+							}
+							}
+						}
+						key
+						type
+						}
+					}
+					}
+				}
+			}
+		`;
+
+		const response = await fetch('/api/2024-10/graphql.json', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				'X-Shopify-Storefront-Access-Token': '66e7ba2f51ab468ba63087b9bb1f4cd9',
+			},
+			body: JSON.stringify({ query })
+		});
+
+		const data = await response.json();
+		console.log('Data ===>', data.data);
+		appendBundleComponents(data.data.product.variants.nodes[0].metafields);
+	}
+
+	function appendBundleComponents(metafields) {
+		
+		// Get the order status (e.g., Baked or Frozen)
+		const orderStatus = document.querySelector('input[name="order-status"]:checked')?.value || "Baked";
+		const maxAddon1 = metafields[5].value;
+		const maxgroup0 = metafields[6]?.value;
+		let selectCountGroup0 = 0;
+
+		const group0Container = document.querySelector('.group0');
+		const group1Container = document.querySelector('.group1');
+		const group2Container = document.querySelector('.group2');
+		const group3Container = document.querySelector('.group3');
+		const group4Container = document.querySelector('.group4');
+		const group5Container = document.querySelector('.group5');
+
+		// Clear existing content
+		if(maxgroup0) {
+			group0Container.innerHTML = '<h3>Select Sandwich Flavors</h3>';
+		} else {
+			group1Container.innerHTML = '<h3>Select One Of Sandwich Flavor</h3>';
+			group2Container.innerHTML = '<h3>Select One Of Drink Flavor</h3>';
+		}
+		group3Container.innerHTML = '<h3>Choose Rose Addon <small> Optional</small></h3>';
+		group4Container.innerHTML = '<h3>Choos Printable Card <small> Optional</small></h3>';
+		group5Container.innerHTML = '<h3>Select Box Title</h3>';
+
+
+		if (maxgroup0) {
+			group0Container.innerHTML = '<h3>Select Sandwich Flavors</h3>';
+
+			// Append items for component_group_0
+			metafields[0]?.references.nodes.forEach((item, idx) => {
+				const html = `
+					<div class="bundle-item group0-check" id="${item.id}">
+						<img src="${item.image.url}" alt="${item.product.title}">
+						<span>
+							${item.product.title} - ${item.price.amount} ${item.price.currencyCode}
+						</span>
+						<input type="number" min="0" max="${maxgroup0}" value="0" class="group0-quantity" id="quantity-${item.id}" data-id="${item.id}">
+					</div>
+				`;
+				group0Container.insertAdjacentHTML('beforeend', html);
+			});
+
+			// Track total selected quantity
+			let totalSelectedQuantity = 0;
+
+			// Add event listener to all quantity inputs
+			const quantityInputs = document.querySelectorAll('.group0-quantity'); // Replace with your actual selector
+
+			const selectedItems = []; // Array to hold the dynamically created nodes
+
+			quantityInputs.forEach((input) => {
+				input.addEventListener('input', () => {
+					// Calculate total quantity
+					let totalSelectedQuantity = Array.from(quantityInputs).reduce((total, input) => {
+						return total + parseInt(input.value || '0', 10); // Handle empty or non-numeric values
+					}, 0);
+
+					// If total exceeds maxgroup0, prevent further selection
+					if (totalSelectedQuantity > maxgroup0) {
+						alert(`You can only select up to ${maxgroup0} items in total.`);
+						input.value = 0;
+
+						// Recalculate total after resetting the current input
+						totalSelectedQuantity = Array.from(quantityInputs).reduce((total, input) => {
+							return total + parseInt(input.value || '0', 10);
+						}, 0);
+					}
+
+					// Disable/Enable inputs based on remaining selection capacity
+					quantityInputs.forEach((input) => {
+						const currentValue = parseInt(input.value || '0', 10);
+						if (totalSelectedQuantity >= maxgroup0 && currentValue === 0) {
+							input.disabled = true;
+						} else {
+							input.disabled = false;
+						}
+					});
+
+					// Build the selected items array
+					selectedItems.length = 0; // Reset the array to reflect current selection
+					quantityInputs.forEach((input) => {
+						const quantity = parseInt(input.value || '0', 10);
+						const idData = input.getAttribute('data-id'); // Assume each input has a data-id attribute
+						const id = idData.replace('gid://shopify/ProductVariant/', '');
+
+						if (quantity > 0) {
+							selectedItems.push({
+								id: id,
+								quantity: quantity,
+								properties: {
+									_bundleId: variantAdminGraphqlApiId,
+									status: orderStatus,
+								},
+							});
+						}
+					});
+
+				});
+				console.log('Selected Items:', selectedItems); // Output the nodes
+				items = selectedItems;
+			});
+
+		}
+		else {
+			// Append items for component_group_1
+			metafields[0]?.references.nodes.forEach(item => {
+				const html = `
+				<div class="bundle-item">
+					<input type="radio" name="group1" value="${item.id}" id="${item.id}">
+					<img src="${item.image.url}" alt="${item.product.title}">
+					<label for="${item.id}">
+						${item.product.title} - ${item.price.amount} ${item.price.currencyCode}
+					</label>
+				</div>
+			`;
+				group1Container.insertAdjacentHTML('beforeend', html);
+			});
+
+			// Append items for component_group_2
+			metafields[1]?.references.nodes.forEach(item => {
+				const html = `
+				<div class="bundle-item">
+					<input type="radio" name="group2" value="${item.id}" id="${item.id}">
+					<img src="${item.image.url}" alt="${item.product.title}">
+					<label for="${item.id}">
+						${item.product.title} - ${item.price.amount} ${item.price.currencyCode}
+					</label>
+				</div>
+			`;
+				group2Container.insertAdjacentHTML('beforeend', html);
+			});
+		}
+
+		// Append items for component_addons_1
+		metafields[2]?.references.nodes.forEach((item, idx) => {
+			const html = `
+				<div class="bundle-item">
+					<input type="radio" name="addons1" value="${item.id}" id="${item.id}" class="addons1-radio">
+					<img src="${item.image.url}" alt="${item.product.title}">
+					<label for="${item.id}">
+						${item.product.variants.edges[idx].node.title} - ${item.price.amount} ${item.price.currencyCode}
+					</label>
+					<input type="number" min="1" max="${maxAddon1}" value="0" class="addons1-quantity" id="quantity-${item.id}" disabled>
+				</div>
+			`;
+			group3Container.insertAdjacentHTML('beforeend', html);
+		});
+
+		// Enable quantity input when an addons1 radio button is selected
+		document.querySelectorAll('.addons1-radio').forEach(radio => {
+			radio.addEventListener('change', () => {
+				// Disable all quantity inputs first
+				document.querySelectorAll('.addons1-quantity').forEach(input => {
+					input.disabled = true;
+				});
+
+				// Enable the quantity input for the selected radio button
+				const selectedQuantityInput = document.getElementById(`quantity-${radio.id}`);
+				selectedQuantityInput.disabled = false;
+			});
+		});
+
+		// Append items for component_addons_2
+		metafields[3]?.references.nodes.forEach((item, idx) => {
+			const html = `
+            <div class="bundle-item">
+                <input type="radio" name="addons2" value="${item.id}" id="${item.id}">
+                <img src="${item.image.url}" alt="${item.product.title}">
+                <label for="${item.id}">
+                    ${item.product.variants.edges[idx].node.title} - ${item.price.amount} ${item.price.currencyCode}
+                </label>
+            </div>
+        `;
+			group4Container.insertAdjacentHTML('beforeend', html);
+		});
+		
+		// Append items for box_title
+		
+		const arrayBoxTitles = JSON.parse(metafields[4]?.value);
+		arrayBoxTitles.forEach((item, idx) => {			
+			const html = `
+				<div class="bundle-item">
+					<input type="radio" name="box-title" value="${item}" id="box-title-${idx}">
+					<label for="box-title-${idx}">
+						${item}
+					</label>
+				</div>
+        	`
+		;
+			group5Container.insertAdjacentHTML('beforeend', html);
+		});
+	}
+
+	// Fetch bundle components on page load
+	fetchBundleComponents();
+
+	// Posting Bundle
+	const form = document.getElementById('bundel-form');
+
+	form.addEventListener('submit', async (e) => {
+		e.preventDefault();
+
+		const orderStatus = document.querySelector('input[name="order-status"]:checked')?.value || "Baked";
+		const group1 = document.querySelector('input[name="group1"]:checked');
+		const group2 = document.querySelector('input[name="group2"]:checked');
+		const group3 = document.querySelector('input[name="addons1"]:checked');
+		const group4 = document.querySelector('input[name="addons2"]:checked');
+		const title = document.querySelector('input[name="box-title"]:checked').value;
+		const message = document.getElementById('addons2-message').value; // Get textarea value
+		const senderName = document.getElementById('sender-name').value; // Get sender name
+		const receiverName = document.getElementById('receiver-name').value; // Get sender name
+		const deliveryDate = document.getElementById('delivery-date').value; // Get delivery date
+		const deliveryTime = document.getElementById('delivery-time').value; // Get delivery time
+
+		// Remove `gid://shopify/ProductVariant/` from the IDs
+		const group1Id = group1 ? group1.value.replace('gid://shopify/ProductVariant/', '') : null;
+		const group2Id = group2 ? group2.value.replace('gid://shopify/ProductVariant/', '') : null;
+		const group3Id = group3 ? group3.value.replace('gid://shopify/ProductVariant/', '') : null;
+		const group4Id = group4 ? group4.value.replace('gid://shopify/ProductVariant/', '') : null;
+
+		// Validate required groups (Group 1 and Group 2)
+		if (group1Id && group2Id) {
+			if (!group1 || !group2) {
+				alert('Please select one item from Group 1 and Group 2.');
+				return;
+			}
+		}
+
+		// Get quantity for addons1 if selected
+		const addons1Quantity = group3
+			? parseInt(document.getElementById(`quantity-${group3.id}`).value, 10)
+			: null;
+
+		try {
+
+		console.log('group1Id', group1Id);
+		console.log('group2Id', group2Id);
+		console.log('orderStatus', orderStatus);
+			if (group1Id && group2Id) {
+				items = [
+					{
+						id: group1Id,
+						quantity: 1,
+						properties: {
+							_bundleId: variantAdminGraphqlApiId,
+							status: orderStatus // Attach the status to the parent product
+						}
+					},
+					{
+						id: group2Id,
+						quantity: 1,
+						properties: {
+							_bundleId: variantAdminGraphqlApiId,
+							status: orderStatus // Attach the status to the parent product
+						}
+					}
+				];
+			} else {
+				items = items
+			}
+
+			// Add optional addons1 with dynamic quantity if selected
+			if (group3Id) {
+				items.push({
+					id: group3Id,
+					quantity: addons1Quantity || 1, // Default to 1 if no quantity is provided
+					properties: {
+						_bundleId: variantAdminGraphqlApiId
+					}
+				});
+			}
+
+			// Add optional addons2 if selected
+			if (group4Id) {
+				items.push({
+					id: group4Id,
+					quantity: 1,
+					properties: {
+						_bundleId: variantAdminGraphqlApiId,
+						message: message
+					}
+				});
+			}
+
+			console.log('items', items);
+
+			const response = await fetch('/cart/add.js', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({ items })
+			});
+
+			// Update the cart note with Additional Details
+			await fetch('/cart/update.js', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					// note: noteData.join('\n'), // Join fields with newlines for readability
+					attributes: {
+						'Status:': orderStatus,
+						'Box Title:': title,
+						'Message:': message,
+						'Sender Name:': senderName,
+						'Receiver Name:': receiverName,
+						'Delivery Date:': deliveryDate,
+						'Delivery Time:': deliveryTime,
+					}
+				})
+			});
+
+			if (!response.ok) {
+				const errorData = await response.json();
+				console.error('Error:', errorData);
+				alert('Error adding items to cart.');
+			} else {
+				console.log('Items added to cart successfully.');
+				// Redirect or reload the page after successful addition
+				// window.location.reload();
+				// document.dispatchEvent(new CustomEvent('cart:refresh')); // Trigger the event to open the cart drawer
+				// Shopify.theme.cartDrawer.open();
+			}
+		} catch (error) {
+			console.error('Network error:', error);
+			alert('Network error occurred.');
+		}
+	});
+
+
+</script>

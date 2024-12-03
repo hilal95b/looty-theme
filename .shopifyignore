@@ -1,0 +1,11 @@
+scr/
+public
+eslint.config.js
+index.html
+package-lock.json
+package.json
+tailwind.config.js
+tsconfig.app.json
+tsconfig.json
+tsconfig.node.json
+vite.config.ts

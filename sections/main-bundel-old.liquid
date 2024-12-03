@@ -1,0 +1,96 @@
+<div id="bundle-selection-form-container">
+  <form id="bundle-selection-form">
+    <div id="component-selection-container"></div>
+    <button type="submit">Add Bundle to Cart</button>
+  </form>
+</div>
+
+<script>
+  async function fetchBundleComponents() {
+    const query = `
+      query MyQuery {
+        product(handle: "bundel-function") {
+          title
+          variants(first: 1) {
+            nodes {
+              price {
+                amount
+                currencyCode
+              }
+            }
+          }
+          variantBySelectedOptions(selectedOptions: {name: "Title", value: "Defult"}) {
+            metafields(identifiers: {key: "component_reference", namespace: "custom"}) {
+              references(first: 10) {
+                edges {
+                  node {
+                    ... on ProductVariant {
+                      id
+                      title
+                      image {
+                        src
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+  `;
+
+    const response = await fetch('/api/2024-10/graphql.json', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Shopify-Storefront-Access-Token': '66e7ba2f51ab468ba63087b9bb1f4cd9',
+      },
+      body: JSON.stringify({ query })
+    });
+
+    const data = await response.json();
+    console.log('data===>', data);
+    const components = data.data.product.variantBySelectedOptions.metafields[0].references.edges;
+
+    const componentSelectionContainer = document.getElementById('component-selection-container');
+
+    components.forEach(component => {
+      const { id, title, image } = component.node;
+      const componentHTML = `
+                <div class="component">
+					<img src="${image.src}" alt="${title}" width="50" height="50"/>
+					<label>${title}</label>
+                    <input type="number" name="component_quantities[${id}]" min="1" value="1" />
+                </div>
+            `;
+      componentSelectionContainer.insertAdjacentHTML('beforeend', componentHTML);
+    });
+  }
+
+  fetchBundleComponents();
+
+  document.getElementById('bundle-selection-form').addEventListener('submit', function (event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+
+    // Convert form data to a structured format
+    const selectedQuantities = {};
+    for (const [key, value] of formData.entries()) {
+      selectedQuantities[key] = parseInt(value, 10);
+    }
+
+    // Send structured data to backend via metafields or cart attributes
+    fetch('/cart/add.js', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        items: [{
+          id: '43523579117708',
+          quantity: 1,
+          properties: { selectedQuantities: JSON.stringify(selectedQuantities) }
+        }]
+      })
+    });
+  });
+</script>

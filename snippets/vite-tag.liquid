@@ -4,6 +4,6 @@
 {% endcomment %}
 {% assign path = vite-tag | replace: '~/', '../' | replace: '@/', '../' %}
 {% if path == "/frontend/entrypoints/main.tsx" or path == "main.tsx" %}
-  <script src="{{ 'main_update2.js' | asset_url | split: '?' | first }}" type="module" crossorigin="anonymous"></script>
-  {{ 'main_update2.css' | asset_url | split: '?' | first | stylesheet_tag: preload: preload_stylesheet }}
+  <script src="{{ 'vite-box_builder.js' | asset_url | split: '?' | first }}" type="module" crossorigin="anonymous"></script>
+  {{ 'vite-box_builder.css' | asset_url | split: '?' | first | stylesheet_tag: preload: preload_stylesheet }}
 {% endif %}

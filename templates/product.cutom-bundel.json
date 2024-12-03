@@ -1,0 +1,12 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-bundel"
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
+
+// {"sections":{"main":{"type":"packeg-builder","settings":{}}},"order":["main"]}

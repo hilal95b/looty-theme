@@ -1,6 +1,6 @@
 {%- liquid
-  render 'vite-tag' with 'main.css'
+  render 'vite-tag' with 'index.css'
   render 'vite-tag' with 'main.tsx'
 -%}
 
-<div id="root"></div>
+<div id="root" data-product="{{ product | json | escape}}"></div>
