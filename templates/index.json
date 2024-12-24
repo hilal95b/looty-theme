@@ -1,14 +1,23 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "featured_collection_GCVh8N": {
       "type": "featured-collection",
       "settings": {
-        "title": "Build Your Box",
-        "heading_size": "h1",
+        "title": "Bundles",
+        "heading_size": "h2",
         "description": "",
         "show_description": false,
         "description_style": "body",
-        "collection": "packages",
+        "collection": "bundles",
         "products_to_show": 4,
         "columns_desktop": 4,
         "full_width": false,
@@ -19,7 +28,7 @@
         "image_ratio": "adapt",
         "image_shape": "default",
         "show_secondary_image": true,
-        "show_vendor": false,
+        "show_vendor": true,
         "show_rating": false,
         "quick_add": "none",
         "columns_mobile": "1",
@@ -32,7 +41,7 @@
       "type": "featured-collection",
       "settings": {
         "title": "Cupcakes",
-        "heading_size": "h1",
+        "heading_size": "h2",
         "description": "",
         "show_description": false,
         "description_style": "body",
@@ -61,7 +70,7 @@
       "settings": {
         "image": "shopify:\/\/shop_images\/banner__1_small_0b116b97-464e-431c-b9fc-728814973693.png",
         "image_overlay_opacity": 0,
-        "image_height": "medium",
+        "image_height": "adapt",
         "desktop_content_position": "middle-center",
         "show_text_box": false,
         "desktop_content_alignment": "center",
@@ -76,7 +85,7 @@
       "type": "featured-collection",
       "settings": {
         "title": "Drinks",
-        "heading_size": "h1",
+        "heading_size": "h2",
         "description": "",
         "show_description": false,
         "description_style": "body",

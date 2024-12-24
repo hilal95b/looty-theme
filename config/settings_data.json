@@ -1,8 +1,17 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "current": {
-    "logo": "shopify:\/\/shop_images\/logo-burgundy.svg",
-    "logo_width": 90,
-    "favicon": "shopify:\/\/shop_images\/favicon-32x32.png",
+    "logo": "shopify://shop_images/logo-burgundy.svg",
+    "logo_width": 80,
+    "favicon": "shopify://shop_images/logo-Light-square.png",
     "type_header_font": "assistant_n4",
     "heading_scale": 100,
     "type_body_font": "assistant_n4",
@@ -99,15 +108,15 @@
     "sale_badge_color_scheme": "scheme-4",
     "sold_out_badge_color_scheme": "scheme-3",
     "brand_headline": "",
-    "brand_description": "<p>Looty is a Jordanian Bakery specializing in the baked snacks or desserts.<\/p>",
-    "brand_image": "shopify:\/\/shop_images\/logo-light.svg",
+    "brand_description": "<p>Looty is a Jordanian Bakery specializing in the baked snacks or desserts.</p>",
+    "brand_image": "shopify://shop_images/logo-light.svg",
     "brand_image_width": 145,
-    "social_facebook_link": "https:\/\/www.instagram.com\/looty.co\/?hl=en",
-    "social_instagram_link": "https:\/\/www.instagram.com\/looty.co\/?hl=en",
-    "social_youtube_link": "https:\/\/www.instagram.com\/looty.co\/?hl=en",
-    "social_tiktok_link": "https:\/\/www.instagram.com\/looty.co\/?hl=en",
-    "social_twitter_link": "https:\/\/www.instagram.com\/looty.co\/?hl=en",
-    "social_snapchat_link": "https:\/\/www.instagram.com\/looty.co\/?hl=en",
+    "social_facebook_link": "https://www.instagram.com/looty.co/?hl=en",
+    "social_instagram_link": "https://www.instagram.com/looty.co/?hl=en",
+    "social_youtube_link": "https://www.instagram.com/looty.co/?hl=en",
+    "social_tiktok_link": "https://www.instagram.com/looty.co/?hl=en",
+    "social_twitter_link": "https://www.instagram.com/looty.co/?hl=en",
+    "social_snapchat_link": "https://www.instagram.com/looty.co/?hl=en",
     "social_pinterest_link": "",
     "social_tumblr_link": "",
     "social_vimeo_link": "",
@@ -134,31 +143,7 @@
         }
       }
     },
-    "content_for_index": [
-
-    ],
-    "blocks": {
-      "9377937747802625048": {
-        "type": "shopify:\/\/apps\/biscuits-bundles\/blocks\/biscuits-app-embed\/9e9ff1bd-2cba-468f-b59f-a1ff63f6efe9",
-        "disabled": false,
-        "settings": {
-          "quickadd_action": "replace",
-          "quick_add_button_classes": "",
-          "quickview_action": "hide",
-          "quick_add_selector": "",
-          "quick_view_selector": "",
-          "grid_item_selector": "",
-          "product_form_selector": "",
-          "custom_css": ""
-        }
-      },
-      "21474836472147483647": {
-        "type": "shopify:\/\/apps\/ecomposer-landing-page-builder\/blocks\/app-embed\/a0fc26e1-7741-4773-8b27-39389b4fb4a0",
-        "disabled": false,
-        "settings": {
-        }
-      }
-    },
+    "content_for_index": [],
     "color_schemes": {
       "scheme-1": {
         "settings": {
@@ -220,7 +205,7 @@
           "background": "#f2f2f2",
           "background_gradient": "",
           "text": "#5a0616",
-          "button": "#667b35",
+          "button": "#5a0616",
           "button_label": "#f9dbb8",
           "secondary_button_label": "#4e0110",
           "shadow": "#4e0110"
@@ -384,7 +369,7 @@
       "sale_badge_color_scheme": "scheme-4",
       "sold_out_badge_color_scheme": "scheme-3",
       "brand_headline": "",
-      "brand_description": "<p><\/p>",
+      "brand_description": "<p></p>",
       "brand_image_width": 100,
       "social_twitter_link": "",
       "social_facebook_link": "",
