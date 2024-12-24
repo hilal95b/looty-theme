@@ -3,4 +3,4 @@
   render 'vite-tag' with 'main.tsx'
 -%}
 
-<div id="root" data-product="{{ product | json | escape}}"></div>
+<div id="root" data-language="{{ shop.locale }}" data-product="{{ product | json | escape}}"></div>
