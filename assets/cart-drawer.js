@@ -80,6 +80,7 @@ class CartDrawer extends HTMLElement {
     });
 
     setTimeout(() => {
+      this.classList.remove('is-empty');
       this.querySelector('#CartDrawer-Overlay').addEventListener('click', this.close.bind(this));
       this.open();
     });
