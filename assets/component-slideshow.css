@@ -46,8 +46,8 @@ slideshow-component .slideshow.banner {
 
 @media screen and (max-width: 749px) {
   slideshow-component.page-width .slideshow__text {
-    border-right: var(--text-boxes-border-width) solid rgba(var(--color-foreground), var(--text-boxes-border-opacity));
-    border-left: var(--text-boxes-border-width) solid rgba(var(--color-foreground), var(--text-boxes-border-opacity));
+    border-inline-end: var(--text-boxes-border-width) solid rgba(var(--color-foreground), var(--text-boxes-border-opacity));
+    border-inline-start: var(--text-boxes-border-width) solid rgba(var(--color-foreground), var(--text-boxes-border-opacity));
   }
 
   .banner--mobile-bottom .slideshow__text.banner__box {
@@ -68,24 +68,24 @@ slideshow-component .slideshow.banner {
 
   .slideshow__text.slideshow__text-mobile--left {
     align-items: flex-start;
-    text-align: left;
+    text-align: start;
   }
 
   .slideshow__text.slideshow__text-mobile--right {
     align-items: flex-end;
-    text-align: right;
+    text-align: end;
   }
 }
 
 @media screen and (min-width: 750px) {
   .slideshow__text.slideshow__text--left {
     align-items: flex-start;
-    text-align: left;
+    text-align: start;
   }
 
   .slideshow__text.slideshow__text--right {
     align-items: flex-end;
-    text-align: right;
+    text-align: end;
   }
 }
 
@@ -127,8 +127,8 @@ slideshow-component .slideshow.banner {
 }
 
 slideshow-component:not(.page-width) .slider-buttons {
-  border-right: 0;
-  border-left: 0;
+  border-inline-end: 0;
+  border-inline-start: 0;
 }
 
 .slideshow__control-wrapper {
@@ -137,8 +137,8 @@ slideshow-component:not(.page-width) .slider-buttons {
 
 .slideshow__autoplay {
   position: absolute;
-  right: 0;
-  border-left: none;
+  inset-inline-end: 0;
+  border-inline-start: none;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -146,16 +146,17 @@ slideshow-component:not(.page-width) .slider-buttons {
 
 @media screen and (max-width: 749px) {
   slideshow-component.page-width .slideshow__autoplay {
-    right: 1.5rem;
+    inset-inline-end: 1.5rem;
   }
 }
 
 @media screen and (min-width: 750px) {
   .slideshow__autoplay.slider-button {
     position: inherit;
-    margin-left: 0.6rem;
-    padding: 0 0 0 0.6rem;
-    border-left: 0.1rem solid rgba(var(--color-foreground), 0.08);
+    margin-inline-start: 0.6rem;
+    padding: 0;
+    padding-inline-start: 0.6rem;
+    border-inline-start: 0.1rem solid rgba(var(--color-foreground), 0.08);
   }
 }
 

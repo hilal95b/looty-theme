@@ -78,7 +78,7 @@
   content: '';
   position: absolute;
   bottom: calc(var(--crossed-line--size) * -0.5);
-  left: 0;
+  inset-inline-start: 0;
   width: var(--diagonal--size);
   height: var(--crossed-line--size);
   background-color: rgb(var(--color-foreground));
