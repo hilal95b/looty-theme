@@ -21,17 +21,23 @@
 
 @media screen and (min-width: 750px) {
   .localization-form {
-    padding: 1rem 2rem 1rem 0;
+    padding-top: 1rem;
+padding-inline-end: 2rem;
+padding-bottom: 1rem;
+padding-inline-start: 0;
   }
 
   .localization-form:first-of-type {
-    padding-left: 0;
+    padding-inline-start: 0;
   }
 
   .localization-form:only-child {
     justify-content: start;
     width: auto;
-    margin: 0 1rem 0 0;
+    margin-top: 0;
+margin-inline-end: 1rem;
+margin-bottom: 0;
+margin-inline-start: 0;
   }
 
   .localization-form:only-child .button,
@@ -48,7 +54,7 @@
   opacity: 0;
   transition: opacity 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   white-space: nowrap;
-  padding-right: 1.7rem;
+  padding-inline-end: 1.7rem;
 }
 
 @media screen and (max-width: 749px) {
@@ -65,8 +71,8 @@
   border-radius: var(--inputs-radius-outset);
   position: relative;
   margin-bottom: 1.5rem;
-  padding-left: 1rem;
-  text-align: left;
+  padding-inline-start: 1rem;
+  text-align: start;
   min-height: calc(4rem + var(--inputs-border-width) * 2);
   min-width: calc(7rem + var(--inputs-border-width) * 2);
 }
@@ -80,7 +86,7 @@
   position: absolute;
   content: '';
   height: 0.6rem;
-  right: calc(var(--inputs-border-width) + 1.5rem);
+  inset-inline-end: calc(var(--inputs-border-width) + 1.5rem);
   top: calc(50% - 0.2rem);
 }
 
@@ -91,7 +97,7 @@
   -moz-appearance: none;
   color: rgb(var(--color-foreground));
   width: 100%;
-  padding-right: 4rem;
+  padding-inline-end: 4rem;
   padding-bottom: 1.5rem;
 }
 
@@ -117,7 +123,10 @@
   cursor: pointer;
   display: flex;
   height: 4rem;
-  padding: 0 1.5rem 0 1.5rem;
+  padding-top: 0;
+padding-inline-end: 1.5rem;
+padding-bottom: 0;
+padding-inline-start: 1.5rem;
   font-size: 1.3rem;
   background-color: transparent;
 }
@@ -178,7 +187,7 @@
 
 .country-filter__reset-button,
 .country-filter__search-icon {
-  right: calc(var(--inputs-border-width));
+  inset-inline-end: calc(var(--inputs-border-width));
   top: var(--inputs-border-width);
 }
 
@@ -188,7 +197,7 @@
   height: calc(100% - 1.8rem);
   content: '';
   position: absolute;
-  right: 0;
+  inset-inline-end: 0;
 }
 
 .country-filter__reset-button:focus,
@@ -234,7 +243,7 @@
   .country-selector__overlay {
     position: fixed;
     top: 0;
-    left: 0;
+    inset-inline-start: 0;
     width: 100%;
     height: 100%;
     background-color: rgba(var(--color-foreground), 0.5);
@@ -245,7 +254,7 @@
   .disclosure__list-wrapper.country-selector {
     position: fixed;
     bottom: -1rem;
-    left: 0;
+    inset-inline-start: 0;
     width: 100%;
     height: 80%;
     max-height: 80vh;
@@ -278,7 +287,10 @@
   }
 
   .country-filter {
-    padding: 1.5rem 2rem 0.6rem 1.5rem;
+    padding-top: 1.5rem;
+padding-inline-end: 2rem;
+padding-bottom: 0.6rem;
+padding-inline-start: 1.5rem;
   }
 }
 
@@ -319,7 +331,7 @@
 
 .disclosure__link .icon-checkmark {
   width: 1rem;
-  margin-right: 0.2rem;
+  margin-inline-end: 0.2rem;
 }
 
 .disclosure__link:hover .localization-form__currency,
@@ -348,7 +360,7 @@
 }
 
 .header-localization .disclosure .localization-form__select:hover {
-  text-decoration: underline;
+  
 }
 
 .header-localization .localization-form__select.link:after,
@@ -382,7 +394,9 @@
 }
 
 .js .header-localization:not(.menu-drawer__localization) .localization-form__select {
-  padding: 0 2.7rem 0 1.2rem;
+  padding: 0;
+  padding-inline-start: 1.2rem;
+  padding-inline-end: 2.7rem;
   width: max-content;
   height: 3.8rem;
 }
@@ -403,13 +417,13 @@
 }
 
 .header-localization:not(.menu-drawer__localization) .localization-form__select .icon-caret {
-  right: 0.8rem;
+  inset-inline-end: 0.8rem;
 }
 
 .header-localization:not(.menu-drawer__localization) .disclosure__list-wrapper {
   bottom: initial;
   top: 100%;
-  right: 0;
+  inset-inline-end: 0;
   transform: translateY(0);
 }
 
@@ -427,7 +441,10 @@
 .menu-drawer__localization .localization-form__select {
   background-color: initial;
   margin-top: 0;
-  padding: 1rem 3.6rem 1rem 0rem;
+  padding-top: 1rem;
+padding-inline-end: 3.6rem;
+padding-bottom: 1rem;
+padding-inline-start: 0rem;
 }
 
 .menu-drawer__localization .localization-form {
