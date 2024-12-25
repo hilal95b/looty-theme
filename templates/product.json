@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
@@ -5,13 +14,11 @@
       "blocks": {
         "title": {
           "type": "title",
-          "settings": {
-          }
+          "settings": {}
         },
         "price": {
           "type": "price",
-          "settings": {
-          }
+          "settings": {}
         },
         "vendor": {
           "type": "text",
@@ -27,38 +34,9 @@
             "swatch_shape": "circle"
           }
         },
-        "biscuits_bundles_biscuits_bundle_form_Kr4tX6": {
-          "type": "shopify:\/\/apps\/biscuits-bundles\/blocks\/biscuits-bundle-form\/9e9ff1bd-2cba-468f-b59f-a1ff63f6efe9",
-          "settings": {
-            "text_color": "#121212",
-            "card_color": "#fff",
-            "input_type": "rectangle",
-            "input_text_color": "#121212",
-            "input_color": "#fff",
-            "display_shadow": false,
-            "display_selection_count": false,
-            "display_running_totals": false,
-            "enable_product_links": true,
-            "card_padding": 10,
-            "grid_gap": 10,
-            "border_color": "#E1E1E1",
-            "border_radius": 0,
-            "highlight_type": "outline",
-            "selected_text_color": "#121212",
-            "selected_color": "#848484",
-            "border_thickness": 1,
-            "divider_color": "#E1E1E1",
-            "important_color": "#DD1D1D",
-            "padding_top": 32,
-            "padding_bottom": 32,
-            "custom_css": "#shopify-block-{{block.id}} {}",
-            "custom_js": "document.addEventListener('DOMContentLoaded', function() { });"
-          }
-        },
         "quantity_selector": {
           "type": "quantity_selector",
-          "settings": {
-          }
+          "settings": {}
         },
         "buy_buttons": {
           "type": "buy_buttons",
@@ -79,7 +57,6 @@
         "price",
         "vendor",
         "variant_picker",
-        "biscuits_bundles_biscuits_bundle_form_Kr4tX6",
         "quantity_selector",
         "buy_buttons",
         "share_6hfJqt"
@@ -117,9 +94,28 @@
         "padding_top": 36,
         "padding_bottom": 28
       }
+    },
+    "1735164421fed53af0": {
+      "type": "apps",
+      "blocks": {
+        "looty_theme_extension_bundle_product_selector_U6g3aC": {
+          "type": "shopify://apps/looty-theme-extension/blocks/bundle-product-selector/839d1ab9-302e-4c41-9151-aae7ffcf78fb",
+          "settings": {
+            "product": "{{product}}",
+            "colour": "#ff0000"
+          }
+        }
+      },
+      "block_order": [
+        "looty_theme_extension_bundle_product_selector_U6g3aC"
+      ],
+      "settings": {
+        "include_margins": true
+      }
     }
   },
   "order": [
+    "1735164421fed53af0",
     "main",
     "related-products"
   ]
