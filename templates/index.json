@@ -9,6 +9,24 @@
  */
 {
   "sections": {
+    "17351645661ce69ade": {
+      "type": "apps",
+      "blocks": {
+        "looty_theme_extension_bundle_product_selector_KnyBib": {
+          "type": "shopify://apps/looty-theme-extension/blocks/bundle-product-selector/839d1ab9-302e-4c41-9151-aae7ffcf78fb",
+          "settings": {
+            "product": "kinder-كندر",
+            "colour": "#ff0000"
+          }
+        }
+      },
+      "block_order": [
+        "looty_theme_extension_bundle_product_selector_KnyBib"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    },
     "featured_collection_GCVh8N": {
       "type": "featured-collection",
       "settings": {
@@ -68,7 +86,7 @@
     "image_banner": {
       "type": "image-banner",
       "settings": {
-        "image": "shopify:\/\/shop_images\/banner__1_small_0b116b97-464e-431c-b9fc-728814973693.png",
+        "image": "shopify://shop_images/banner__1_small_0b116b97-464e-431c-b9fc-728814973693.png",
         "image_overlay_opacity": 0,
         "image_height": "adapt",
         "desktop_content_position": "middle-center",
@@ -112,7 +130,7 @@
     "image_banner_LNXftq": {
       "type": "image-banner",
       "settings": {
-        "image": "shopify:\/\/shop_images\/patren.png",
+        "image": "shopify://shop_images/patren.png",
         "image_overlay_opacity": 0,
         "image_height": "adapt",
         "desktop_content_position": "middle-center",
@@ -133,6 +151,7 @@
     }
   },
   "order": [
+    "17351645661ce69ade",
     "featured_collection_GCVh8N",
     "featured_collection",
     "image_banner",
