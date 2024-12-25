@@ -9,6 +9,23 @@
  */
 {
   "sections": {
+    "1735165850db918c6e": {
+      "type": "apps",
+      "blocks": {
+        "looty_theme_extension_bundle_product_selector_tPjqPB": {
+          "type": "shopify://apps/looty-theme-extension/blocks/bundle-product-selector/839d1ab9-302e-4c41-9151-aae7ffcf78fb",
+          "settings": {
+            "colour": "#ff0000"
+          }
+        }
+      },
+      "block_order": [
+        "looty_theme_extension_bundle_product_selector_tPjqPB"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    },
     "main": {
       "type": "main-product",
       "blocks": {
@@ -94,28 +111,10 @@
         "padding_top": 36,
         "padding_bottom": 28
       }
-    },
-    "1735164421fed53af0": {
-      "type": "apps",
-      "blocks": {
-        "looty_theme_extension_bundle_product_selector_U6g3aC": {
-          "type": "shopify://apps/looty-theme-extension/blocks/bundle-product-selector/839d1ab9-302e-4c41-9151-aae7ffcf78fb",
-          "settings": {
-            "product": "{{product}}",
-            "colour": "#ff0000"
-          }
-        }
-      },
-      "block_order": [
-        "looty_theme_extension_bundle_product_selector_U6g3aC"
-      ],
-      "settings": {
-        "include_margins": true
-      }
     }
   },
   "order": [
-    "1735164421fed53af0",
+    "1735165850db918c6e",
     "main",
     "related-products"
   ]
