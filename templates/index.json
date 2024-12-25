@@ -9,24 +9,6 @@
  */
 {
   "sections": {
-    "17351645661ce69ade": {
-      "type": "apps",
-      "blocks": {
-        "looty_theme_extension_bundle_product_selector_KnyBib": {
-          "type": "shopify://apps/looty-theme-extension/blocks/bundle-product-selector/839d1ab9-302e-4c41-9151-aae7ffcf78fb",
-          "settings": {
-            "product": "kinder-كندر",
-            "colour": "#ff0000"
-          }
-        }
-      },
-      "block_order": [
-        "looty_theme_extension_bundle_product_selector_KnyBib"
-      ],
-      "settings": {
-        "include_margins": true
-      }
-    },
     "featured_collection_GCVh8N": {
       "type": "featured-collection",
       "settings": {
@@ -151,7 +133,6 @@
     }
   },
   "order": [
-    "17351645661ce69ade",
     "featured_collection_GCVh8N",
     "featured_collection",
     "image_banner",
